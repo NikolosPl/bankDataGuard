@@ -20,27 +20,30 @@ public class TransactionParser {
             String line, transactionID, accountNumber,  amount, currency, transactionDate;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
-                if(!parts[0].startsWith("TX")) continue;
+                if(parts[0].startsWith("ID_TRANSAKCJI")) continue;
                 transactionID = parts[0];
                 accountNumber = parts[1];
                 amount = parts[2];
                 currency = parts[3];
-//                transactionDate = parts[4];
+                transactionDate = parts[parts.length-1];
                 ArrayList<String> lines = new ArrayList<>();
                 lines.add(accountNumber);
                 lines.add(amount);
                 lines.add(currency);
-//                lines.add(transactionDate);
+                lines.add(transactionDate);
                 data.put(transactionID, lines);
             }
-
         } catch(IOException e) {
             System.out.println("File empty or non-existent.");
         }
     }
+    public HashMap<String, ArrayList<String>> getData(){
+        this.parseTransaction();
+        return this.data;
+    }
     public void printData(){
         for (String key: this.data.keySet()) {
-            System.out.println("Transaction ID: " + key + "\nAccount number: " + this.data.get(key).get(0) + "\nAmount: " + this.data.get(key).get(1) + "\nCurrency: " + this.data.get(key).get(2) + "\nTransaction Date: \n" );
+            System.out.println("Transaction ID: " + key + "\nAccount number: " + this.data.get(key).get(0) + "\nAmount: " + this.data.get(key).get(1) + "\nCurrency: " + this.data.get(key).get(2) + "\nTransaction Date: " +  this.data.get(key).get(3) + "\n");
         }
     }
 }
