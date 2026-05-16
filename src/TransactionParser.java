@@ -2,18 +2,16 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 public class TransactionParser {
     private String filePath;
-    private HashMap<String, ArrayList<String>> data;
+    private ArrayList<Transaction> transactions;
     public TransactionParser(){
         this.filePath = "resources/transactions.csv";
-        this.data = new HashMap<>();
+        this.transactions = new ArrayList<>();
     }
     public TransactionParser(String filePath) {
         this.filePath = filePath;
-        this.data = new HashMap<>();
+        this.transactions = new ArrayList<>();
     }
     public void parseTransaction(){
         try(BufferedReader br = new BufferedReader(new FileReader(this.filePath))) {
@@ -31,19 +29,19 @@ public class TransactionParser {
                 lines.add(amount);
                 lines.add(currency);
                 lines.add(transactionDate);
-                data.put(transactionID, lines);
+                this.transactions.add(new Transaction(transactionID, accountNumber, amount, currency, transactionDate));
             }
         } catch(IOException e) {
             System.out.println("File empty or non-existent.");
         }
     }
-    public HashMap<String, ArrayList<String>> getData(){
+    public ArrayList<Transaction> getTransactions(){
         this.parseTransaction();
-        return this.data;
+        return this.transactions;
     }
     public void printData(){
-        for (String key: this.data.keySet()) {
-            System.out.println("Transaction ID: " + key + "\nAccount number: " + this.data.get(key).get(0) + "\nAmount: " + this.data.get(key).get(1) + "\nCurrency: " + this.data.get(key).get(2) + "\nTransaction Date: " +  this.data.get(key).get(3) + "\n");
+        for (Transaction transaction : this.transactions) {
+            System.out.println("Transaction id: " + transaction.getId() + "\nAccount number: " + transaction.getNr_konta() + "\nAmount: " + transaction.getAmount() + "\nCurrency: " + transaction.getCurrency() + "\nDate: " + transaction.getDate() + "\n");
         }
     }
 }
