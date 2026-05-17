@@ -7,7 +7,4 @@ public enum Currency {
     Currency(double v) {
         this.value = v;
     }
-    public double value(){
-        return  this.value;
-    }
 }

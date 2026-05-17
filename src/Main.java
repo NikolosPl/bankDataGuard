@@ -1,8 +1,7 @@
 void main() {
-//    Validator validator = new Validator();
-//    validator.validateTransaction();
-    TransactionParser transactionParser = new TransactionParser();
-//    ArrayList<Transaction> s = transactionParser.getTransactions();
-    transactionParser.parseTransaction();
-    transactionParser.printData();
+    Validator validator = new Validator();
+    validator.validateTransaction();
+    validator.printValidateData();
+    System.out.println("--------------------------------------------------");
+    validator.printRejectedData();
 }
