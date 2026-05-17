@@ -34,4 +34,7 @@ public class Transaction {
     public String getDate(){
         return  this.date;
     }
+    public String toString(){
+        return "Transaction ID: " + this.id + "\nAccount number: " + this.nr_konta + "\nAmount: " + this.amount + "\nCurrency: " + this.currency + "\nDate: " + this.date + "\n";
+    }
 }
