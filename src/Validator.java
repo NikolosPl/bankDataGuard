@@ -17,7 +17,7 @@ public class Validator {
         Set<String> ids = new HashSet<>();
         for (Transaction transaction: this.data) {
             if(transaction.getCurrency().equals(pln.toString()) || transaction.getCurrency().equals(euro.toString()) || transaction.getCurrency().equals(usd.toString())){
-                if(transaction.getDate().matches("^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$")){
+                if(transaction.getDate().matches("^(19[0-9]{2}|[2-9][0-9]{3}|3000)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$")){
                     try{
                         if(Double.parseDouble(transaction.getAmount()) > 0.0){
                             if(transaction.getNr_konta().length() == 10){
