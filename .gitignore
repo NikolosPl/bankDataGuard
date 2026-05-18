@@ -31,3 +31,6 @@ bin/
 
 ### Report Out Files ###
 raport.txt
+
+### JetBrains IDE settings ###
+.idea/
