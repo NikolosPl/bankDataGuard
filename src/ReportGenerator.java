@@ -18,7 +18,7 @@ public class ReportGenerator {
             throw new RuntimeException(e);
         }
     }
-    private final DecimalFormat df = new DecimalFormat("#.##");
+    private final DecimalFormat decimalFormat = new DecimalFormat("#.##");
     private final Validator validator = new Validator();
     private final ArrayList<Transaction> validatedData = validator.getValidatedData();
     private final HashMap<Transaction, String> rejectedData = validator.getRejectedData();
@@ -29,7 +29,7 @@ public class ReportGenerator {
         for (Transaction transaction : this.rejectedData.keySet()) {
             txt.append("\n").append(transaction.getId()).append(" - BŁĄD: ").append(this.rejectedData.get(transaction));
         }
-        txt.append("\n-------------------------------------------------------------------\nCałkowita suma poprawnych transakcji przeliczona na PLN: ").append(df.format(Validator.total)).append("zł");
+        txt.append("\n-------------------------------------------------------------------\nCałkowita suma poprawnych transakcji przeliczona na PLN: ").append(decimalFormat.format(Validator.total)).append("zł");
         System.out.println(txt);
         try {
             Files.writeString(path, txt.toString());
