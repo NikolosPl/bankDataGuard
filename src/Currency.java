@@ -3,7 +3,7 @@ public enum Currency {
     EUR(4.24),
     USD(3.63);
 
-    private double value;
+    private final double value;
     Currency(double v) {
         this.value = v;
     }

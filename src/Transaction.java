@@ -1,23 +1,22 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
 public class Transaction {
-    private  String id, nr_konta, amount, currency, date;
-    private HashMap<String, ArrayList<String>> transaction;
+    private final String id, nr_konta, amount, currency, date;
+    HashMap<String, ArrayList<String>> transaction = new HashMap<>();
+    ArrayList<String> list = new ArrayList<>();
+
     public Transaction(String id, String nr_konta, String amount, String currency,  String date){
         this.id = id;
         this.nr_konta = nr_konta;
         this.amount = amount;
         this.currency = currency;
         this.date = date;
-        this.transaction = new HashMap<>();
         this.transaction.putIfAbsent(id, new ArrayList<>());
-        ArrayList<String> list = new ArrayList<>();
-        list.add(nr_konta);
-        list.add(amount);
-        list.add(currency);
-        list.add(date);
-        this.transaction.put(id, list);
+        this.list.add(nr_konta);
+        this.list.add(amount);
+        this.list.add(currency);
+        this.list.add(date);
+        this.transaction.put(id, this.list);
     }
     public String getId(){
         return this.id;
