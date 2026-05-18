@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,8 +17,9 @@ public class Validator {
     public void validateTransaction(){
         Set<String> ids = new HashSet<>();
         for (Transaction transaction: this.data) {
+            String date = transaction.getDate();
             if(transaction.getCurrency().equals(pln.toString()) || transaction.getCurrency().equals(euro.toString()) || transaction.getCurrency().equals(usd.toString())){
-                if(transaction.getDate().matches("^(19[0-9]{2}|[2-9][0-9]{3}|3000)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$")){
+                if(date.matches("^(19[0-9]{2}|[2-9][0-9]{3}|3000)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$") && !LocalDate.parse(date).isAfter(LocalDate.now())){
                     try{
                         if(Double.parseDouble(transaction.getAmount()) > 0.0){
                             if(transaction.getNr_konta().length() == 10){
