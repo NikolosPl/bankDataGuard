@@ -10,4 +10,11 @@ public enum Currency {
     public double getRate(){
         return  this.value;
     }
+    public static Currency fromString(String currency){
+        try{
+            return Currency.valueOf(currency);
+        } catch (IllegalArgumentException e){
+            return null;
+        }
+    }
 }

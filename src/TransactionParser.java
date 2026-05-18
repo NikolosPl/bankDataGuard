@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.FileSystemException;
 import java.util.ArrayList;
 public class TransactionParser {
     private final String filePath;
@@ -15,20 +14,24 @@ public class TransactionParser {
         this.transactions = new ArrayList<>();
     }
     public void parseTransaction(){
+        this.transactions.clear();
         try(BufferedReader br = new BufferedReader(new FileReader(this.filePath))) {
-            String line, transactionID, accountNumber,  amount, currency, transactionDate;
+            String line;
             while ((line = br.readLine()) != null) {
-                if(line.length() < 5){
-                    throw  new FileSystemException("File does not contain 5 columns.");
-                }
+                if(line.isBlank()) continue;
                 String[] parts = line.split(";");
+                if(parts.length < 5){
+                    System.out.println("Row has less than 5 columns: " + line);
+                    continue;
+                }
                 if(parts[0].startsWith("ID_TRANSAKCJI")) continue;
-                transactionID = parts[0];
-                accountNumber = parts[1];
-                amount = parts[2];
-                currency = parts[3];
-                transactionDate = parts[parts.length-1];
-                this.transactions.add(new Transaction(transactionID, accountNumber, amount, currency, transactionDate));
+                this.transactions.add(new Transaction(
+                        parts[0],
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        parts[parts.length-1]
+                ));
             }
         } catch(IOException e) {
             System.out.println("File empty or non-existent.");
