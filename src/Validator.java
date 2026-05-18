@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,11 +8,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Validator {
-    private double total = 0;
+    private BigDecimal total = BigDecimal.ZERO;
     private final ArrayList<Transaction> data;
     private final ArrayList<Transaction> validatedData = new ArrayList<>();
     private final HashMap<Transaction, String> rejectedData = new HashMap<>();
-
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public Validator(ArrayList<Transaction> data) {
         this.data = data;
     }
@@ -23,10 +24,10 @@ public class Validator {
                 this.rejectedData.put(transaction, "Duplicate transaction ID");
                 continue;
             }
-            double amount;
+            BigDecimal amount;
             try{
-                amount = Double.parseDouble(transaction.amount());
-                if(amount <= 0){
+                amount = new BigDecimal(transaction.amount());
+                if(amount.compareTo(BigDecimal.ZERO) <= 0){
                     this.rejectedData.put(transaction, "Invalid amount");
                     continue;
                 }
@@ -44,20 +45,22 @@ public class Validator {
                 continue;
             }
             try{
-                if(LocalDate.parse(transaction.date(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).isAfter(LocalDate.now())){
-                    this.rejectedData.put(transaction, "Invalid date format, expected YYYY-MM-DD");
+                LocalDate parsedDate = LocalDate.parse(transaction.date(), dateFormatter);
+                if(parsedDate.isAfter(LocalDate.now())){
+                    this.rejectedData.put(transaction, "Invalid date, cannot be in the future");
                     continue;
                 }
             } catch (DateTimeParseException e){
-                this.rejectedData.put(transaction, "Invalid date");
+                this.rejectedData.put(transaction, "Invalid date format, should be yyyy-MM-dd");
                 continue;
             }
 
+            BigDecimal rate = BigDecimal.valueOf(currency.getRate());
+            this.total = this.total.add(amount.multiply(rate));
             this.validatedData.add(transaction);
-            this.total += amount * currency.getRate();
         }
     }
-    public double getTotal(){
+    public BigDecimal getTotal(){
         return this.total;
     }
     public ArrayList<Transaction> getValidatedData(){
