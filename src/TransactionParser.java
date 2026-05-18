@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.FileSystemException;
 import java.util.ArrayList;
 public class TransactionParser {
-    private String filePath;
-    private ArrayList<Transaction> transactions;
+    private final String filePath;
+    private final ArrayList<Transaction> transactions;
     public TransactionParser(){
         this.filePath = "resources/transactions.csv";
         this.transactions = new ArrayList<>();
@@ -37,10 +37,5 @@ public class TransactionParser {
     public ArrayList<Transaction> getTransactions(){
         this.parseTransaction();
         return this.transactions;
-    }
-    public void printData(){
-        for (Transaction transaction : this.transactions) {
-            System.out.println("Transaction id: " + transaction.getId() + "\nAccount number: " + transaction.getNr_konta() + "\nAmount: " + transaction.getAmount() + "\nCurrency: " + transaction.getCurrency() + "\nDate: " + transaction.getDate() + "\n");
-        }
     }
 }

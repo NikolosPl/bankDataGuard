@@ -2,7 +2,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ReportGenerator {
-    private DecimalFormat df = new DecimalFormat("#.##");
+    private final DecimalFormat df = new DecimalFormat("#.##");
     private final Validator validator = new Validator();
     private final ArrayList<Transaction> validatedData = validator.getValidatedData();
     private final ArrayList<Transaction> rejectedData = validator.getRejectedData();
