@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Validator {
+    static double total = 0;
     private final TransactionParser transactionParser = new TransactionParser();
     private final Currency pln = Currency.PLN;
     private final Currency euro = Currency.EUR;
@@ -24,6 +25,13 @@ public class Validator {
                                 } else{
                                     ids.add(transaction.getId());
                                     this.validatedData.add(transaction);
+                                    if(transaction.getCurrency().equals(pln.toString())){
+                                        total += Double.parseDouble(transaction.getAmount());
+                                    } else if(transaction.getCurrency().equals(euro.toString())){
+                                        total += Double.parseDouble(transaction.getAmount()) * Currency.EUR.getRate();
+                                    } else if(transaction.getCurrency().equals(usd.toString())){
+                                        total += Double.parseDouble(transaction.getAmount()) * Currency.USD.getRate();
+                                    }
                                 }
                             } else{
                                 this.rejectedData.add(transaction);
@@ -50,13 +58,13 @@ public class Validator {
         return this.rejectedData;
     }
     public void printValidateData(){
-        System.out.println("Validated data:\n");
+        System.out.println("Validated data:");
         for (Transaction transaction: this.validatedData) {
             System.out.println(transaction);
         }
     }
     public void printRejectedData(){
-        System.out.println("Rejected data:\n");
+        System.out.println("Rejected data:");
         for (Transaction transaction: this.rejectedData) {
             System.out.println(transaction);
         }
