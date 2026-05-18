@@ -25,13 +25,6 @@ Silnik musi obsługiwać plik tekstowy (np. `transactions.csv`), w którym każd
 *   **Logika Czasu:** Data transakcji nie może być datą z przyszłości względem czasu systemowego.
 *   **Dozwolone Waluty:** Akceptacja wyłącznie walut: `PLN`, `EUR`, `USD`. Każda inna (np. CHF, GBP) powoduje odrzucenie.
 
-### C. Obsługa Błędów (Custom Exceptions)
-Wymagane jest stworzenie własnych klas wyjątków, aby precyzyjnie identyfikować błędy:
-*   `InvalidCurrencyException`
-*   `FutureDateException`
-*   `InsufficientDataException`
-*   `DuplicateTransactionException`
-
 ---
 
 ## 4. Wynik Działania (Output)
@@ -50,11 +43,10 @@ Podział na klasy zgodnie z zasadą Single Responsibility (Jednej Odpowiedzialno
 *   **`TransactionParser`** – Odpowiedzialna za odczyt pliku (I/O) i mapowanie tekstu na obiekty.
 *   **`Validator`** – Logika sprawdzająca reguły techniczne i finansowe.
 *   **`ReportGenerator`** – Moduł odpowiedzialny za formatowanie i wyświetlanie statystyk.
-*   **`Main`** – Punkt wejścia do aplikacji, koordynujący przepływ danych.
+*   **`Main`** – Punkt wejścia do aplikacji, koordynujący przepływ danych.~~
 
----
+~~---
 
 ## 6. Rozszerzenia (Opcjonalne / Dla ambitnych)
 *   **Safe Mode:** Obsługa sytuacji, w której plik wejściowy nie istnieje lub jest pusty (bez przerywania działania programu błędem krytycznym).
-*   **Logging:** Zastosowanie loggera do rejestrowania błędów zamiast standardowego `System.out.println`.
 *   **File Export:** Zapisywanie raportu końcowego do nowego pliku `.txt`.
