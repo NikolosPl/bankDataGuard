@@ -1,17 +1,35 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ReportGenerator {
+    Path path = Paths.get("raport.txt");
+    {
+        try {
+            if(Files.exists(path)){
+                Files.delete(path);
+            }
+            Files.createFile(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private final DecimalFormat df = new DecimalFormat("#.##");
     private final Validator validator = new Validator();
     private final ArrayList<Transaction> validatedData = validator.getValidatedData();
     private final ArrayList<Transaction> rejectedData = validator.getRejectedData();
+
     public void generateReport(){
         validator.validateTransaction();
-        System.out.println("Łączna liczba przetworzonych transakcji: " + (validatedData.size() + rejectedData.size()));
-        System.out.println("Liczba zaakceptowanych transakcji: " + validatedData.size());
-        System.out.println("Liczba odrzuconych transakcji: " + rejectedData.size());
-        validator.printRejectedData();
-        System.out.println("-------------------------\nCałkowita suma poprawnych transackji przeliczona na PLN: " + df.format(Validator.total) + "zł");
+        String txt = "Łączna liczba przetworzonych transakcji: " + (validatedData.size() + rejectedData.size()) +"\nLiczba zaakceptowanych transakcji: " + validatedData.size() + "\nLiczba odrzuconych transakcji: " + rejectedData.size() + "\n---------------------------------------------------\nCałkowita suma poprawnych transakcji przeliczona na PLN: " + df.format(Validator.total) + "zł";
+        System.out.println(txt);
+        try {
+            Files.writeString(path, txt);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

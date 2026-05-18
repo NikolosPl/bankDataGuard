@@ -39,8 +39,7 @@ public class Validator {
                         } else{
                             this.rejectedData.add(transaction);
                         }
-                    } catch (NumberFormatException e){
-                        continue;
+                    } catch (NumberFormatException _){
                     }
                 }
                 else{
@@ -56,17 +55,5 @@ public class Validator {
     }
     public ArrayList<Transaction> getRejectedData(){
         return this.rejectedData;
-    }
-    public void printValidateData(){
-        System.out.println("Validated data:");
-        for (Transaction transaction: this.validatedData) {
-            System.out.println(transaction);
-        }
-    }
-    public void printRejectedData(){
-        System.out.println("Rejected data:");
-        for (Transaction transaction: this.rejectedData) {
-            System.out.println(transaction);
-        }
     }
 }
