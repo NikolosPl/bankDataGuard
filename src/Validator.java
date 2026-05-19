@@ -51,7 +51,7 @@ public class Validator {
                     continue;
                 }
             } catch (DateTimeParseException e){
-                this.rejectedData.put(transaction, "Invalid date format, should be yyyy-MM-dd");
+                this.rejectedData.put(transaction, "Invalid date format, should be YYYY-MM-DD");
                 continue;
             }
 
