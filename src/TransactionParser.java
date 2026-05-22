@@ -30,7 +30,7 @@ public class TransactionParser {
                         parts[1],
                         parts[2],
                         parts[3],
-                        parts[parts.length-1]
+                        parts[4]
                 ));
             }
         } catch(IOException e) {

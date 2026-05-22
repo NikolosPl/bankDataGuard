@@ -3,14 +3,11 @@ import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class ReportGenerator {
     private final Path path = Paths.get("report.txt");
-    private final DecimalFormat decimalFormat = new DecimalFormat("#.##");
     private final Validator validator;
     public ReportGenerator(Validator validator){
         this.validator = validator;
