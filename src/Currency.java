@@ -1,7 +1,7 @@
 public enum Currency {
-    PLN(1),
-    EUR(4.24),
-    USD(3.63);
+    PLN(1.00),
+    EUR(4.30),
+    USD(4.00);
 
     private final double value;
     Currency(double v) {

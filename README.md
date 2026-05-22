@@ -18,10 +18,9 @@ BankDataGuard to silnik backendowy napisany w czystej Javie, służący do proce
 *   **Narzędzia:** Brak bibliotek zewnętrznych (Pure Java Core) – pełna kontrola nad logiką.
 
 ## 📁 Struktura Projektu
-*   `Transaction.java` - Model danych (POJO).
+*   `Transaction.java` - Model danych (record).
 *   `TransactionParser.java` - Odczyt i interpretacja plików wejściowych.
 *   `Validator.java` - Serce systemu; zawiera reguły walidacyjne i rzuca niestandardowe wyjątki.
-*   `exceptions/` - Pakiet zawierający autorskie klasy wyjątków (np. `InvalidCurrencyException`).
 *   `ReportGenerator.java` - Moduł odpowiedzialny za formatowanie wyjścia konsolowego.
 
 ## 📋 Przykład danych wejściowych (transactions.csv)

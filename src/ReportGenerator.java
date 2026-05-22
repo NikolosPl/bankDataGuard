@@ -1,10 +1,12 @@
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ReportGenerator {
     private final Path path = Paths.get("report.txt");
@@ -23,12 +25,12 @@ public class ReportGenerator {
         }
         validator.validateTransaction();
         ArrayList<Transaction> validatedData = validator.getValidatedData();
-        HashMap<Transaction, String> rejectedData = validator.getRejectedData();
+        LinkedHashMap<String, String> rejectedData = validator.getRejectedData();
         StringBuilder txt = new StringBuilder("Łączna liczba przetworzonych transakcji: " + (validatedData.size() + rejectedData.size()) + "\nLiczba zaakceptowanych transakcji: " + validatedData.size() + "\nLiczba odrzuconych transakcji: " + rejectedData.size() + "\n-------------------------------------------------------------------");
-        for (Transaction transaction : rejectedData.keySet()) {
-            txt.append("\n").append(transaction.id()).append(" - BŁĄD: ").append(rejectedData.get(transaction));
+        for (var entry : rejectedData.entrySet()) {
+            txt.append("\n").append(entry.getKey()).append(" - BŁĄD: ").append(entry.getValue());
         }
-        txt.append("\n-------------------------------------------------------------------\nCałkowita suma poprawnych transakcji przeliczona na PLN: ").append(decimalFormat.format(validator.getTotal())).append("zł");
+        txt.append("\n-------------------------------------------------------------------\nCałkowita suma poprawnych transakcji przeliczona na PLN: ").append(validator.getTotal().setScale(2, RoundingMode.HALF_UP).toPlainString()).append("zł");
         System.out.println(txt);
         try {
             Files.writeString(path, txt.toString());

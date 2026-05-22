@@ -19,7 +19,7 @@ public class TransactionParser {
             String line;
             while ((line = br.readLine()) != null) {
                 if(line.isBlank()) continue;
-                String[] parts = line.split(";");
+                String[] parts = line.trim().split(";", -1);
                 if(parts.length < 5){
                     System.out.println("Row has less than 5 columns: " + line);
                     continue;
@@ -38,7 +38,6 @@ public class TransactionParser {
         }
     }
     public ArrayList<Transaction> getTransactions(){
-        this.parseTransaction();
         return this.transactions;
     }
 }

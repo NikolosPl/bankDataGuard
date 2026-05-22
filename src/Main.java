@@ -1,5 +1,6 @@
 void main() {
     TransactionParser parser = new TransactionParser();
+    parser.parseTransaction();
     ArrayList<Transaction> rawData = parser.getTransactions();
 
     Validator validator = new Validator(rawData);
