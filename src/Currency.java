@@ -1,13 +1,15 @@
-public enum Currency {
-    PLN(1.00),
-    EUR(4.30),
-    USD(4.00);
+import java.math.BigDecimal;
 
-    private final double value;
-    Currency(double v) {
+public enum Currency {
+    PLN(new BigDecimal("1.00")),
+    EUR(new BigDecimal("4.30")),
+    USD(new BigDecimal("4.00"));
+
+    private final BigDecimal value;
+    Currency(BigDecimal v) {
         this.value = v;
     }
-    public double getRate(){
+    public BigDecimal getExchangeRate(){
         return  this.value;
     }
     public static Currency fromString(String currency){

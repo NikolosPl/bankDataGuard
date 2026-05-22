@@ -23,7 +23,7 @@ public class Validator {
             }
             BigDecimal amount;
             try{
-                amount = new BigDecimal(transaction.amount());
+                amount = transaction.amount();
                 if(amount.compareTo(BigDecimal.ZERO) <= 0){
                     this.rejectedData.put(transaction.id(), "Invalid amount");
                     continue;
@@ -42,8 +42,7 @@ public class Validator {
                 continue;
             }
             try{
-                LocalDate parsedDate = LocalDate.parse(transaction.date(), dateFormatter);
-                if(parsedDate.isAfter(LocalDate.now())){
+                if(transaction.date().isAfter(LocalDate.now())){
                     this.rejectedData.put(transaction.id(), "Invalid date, cannot be in the future");
                     continue;
                 }
@@ -52,7 +51,7 @@ public class Validator {
                 continue;
             }
 
-            BigDecimal rate = BigDecimal.valueOf(currency.getRate());
+            BigDecimal rate = currency.getExchangeRate();
             this.total = this.total.add(amount.multiply(rate));
             this.validatedData.add(transaction);
         }

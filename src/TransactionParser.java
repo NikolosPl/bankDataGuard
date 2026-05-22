@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 public class TransactionParser {
     private final String filePath;
@@ -24,13 +27,25 @@ public class TransactionParser {
                     System.out.println("Row has less than 5 columns: " + line);
                     continue;
                 }
+                BigDecimal amount = null;
+                LocalDate date = null;
+                try{
+                    amount = new BigDecimal(parts[2]);
+                } catch (NumberFormatException _){
+                    continue;
+                }
+                try{
+                    date = LocalDate.parse(parts[4]);
+                } catch (DateTimeParseException _){
+                    continue;
+                }
                 if(parts[0].startsWith("ID_TRANSAKCJI")) continue;
                 this.transactions.add(new Transaction(
                         parts[0],
                         parts[1],
-                        parts[2],
+                        amount,
                         parts[3],
-                        parts[4]
+                        date
                 ));
             }
         } catch(IOException e) {

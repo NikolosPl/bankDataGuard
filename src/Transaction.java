@@ -1,7 +1,10 @@
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 public record Transaction(
         String id,
         String accountNumber,
-        String amount,
+        BigDecimal amount,
         String currency,
-        String date
+        LocalDate date
 ) {}
