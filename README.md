@@ -1,30 +1,30 @@
 # BankDataGuard - Banking Transaction Validation Engine
 
-## 📌 Project Overview
-BankDataGuard is a lightweight, pure Java backend engine designed for high-precision parsing and strict validation of banking transaction data. Built with an emphasis on data integrity and financial accuracy, it simulates core banking validation workflows where zero-tolerance for precision loss is critical.
+## 📌 O projekcie
+BankDataGuard to silnik backendowy napisany w czystej Javie, służący do procesowania i rygorystycznej walidacji danych transakcyjnych. Projekt został stworzony z myślą o symulacji systemów bankowych, gdzie integralność danych i precyzja finansowa są priorytetem.
 
-## 🚀 Key Features
-* **Data Parsing:** Automated ingestion and parsing of structured transaction records from input streams (CSV/Text).
-* **Strict Business Validation:**
-  * Account number format verification (exactly 10 digits).
-  * Currency compliance (strict enforcement of PLN, EUR, USD).
-  * Future-date protection (blocking transactions post-dating the current system time).
-* **Financial Safety:** Exclusive utilization of `BigDecimal` for all monetary calculations to eliminate floating-point rounding errors inherent to `float` or `double`.
-* **Report Generation:** Comprehensive console-based summary generator compiling accepted/rejected transaction metrics along with precise error reason tracking.
+## 🚀 Główne Funkcjonalności
+*   **Parsowanie danych:** Automatyczne wczytywanie transakcji z plików CSV/tekstowych.
+*   **Rygorystyczna Walidacja Biznesowa:**
+    *   Weryfikacja formatu numerów kont (dokładnie 10 cyfr).
+    *   Walidacja walut (obsługa tylko PLN, EUR, USD).
+    *   Blokowanie transakcji z datą przyszłą.
+*   **Bezpieczeństwo finansowe:** Wykorzystanie klasy `BigDecimal` do wszystkich obliczeń pieniężnych, aby uniknąć błędów zaokrągleń typu `float/double`.
+*   **System Raportowania:** Generowanie podsumowania zawierającego statystyki zaakceptowanych i odrzuconych operacji wraz z powodami błędów.
 
-## 🛠️ Tech Stack & Paradigms
-* **Language:** Java 21 (or your specific version)
-* **Paradigms:** Object-Oriented Programming (OOP), Clean Code, Single Responsibility Principle.
-* **Dependencies:** None (Pure Java SE Core) for full control over logic and execution speed.
+## 🛠 Technologia
+*   **Język:** Java 26
+*   **Paradygmaty:** Programowanie Obiektowe (OOP), Clean Code.
+*   **Narzędzia:** Brak bibliotek zewnętrznych (Pure Java Core) – pełna kontrola nad logiką.
 
-## 📂 Project Structure
-* `Transaction.java` – Data model representing a immutable transaction record.
-* `TransactionParser.java` – Input stream handling and parsing logic.
-* `Validator.java` – Core validation engine containing strict business rules and custom exception handling.
-* `ReportGenerator.java` – Formatting module responsible for generating execution summaries.
+## 📁 Struktura Projektu
+*   `Transaction.java` - Model danych (record).
+*   `TransactionParser.java` - Odczyt i interpretacja plików wejściowych.
+*   `Validator.java` - Serce systemu; zawiera reguły walidacyjne i rzuca niestandardowe wyjątki.
+*   `ReportGenerator.java` - Moduł odpowiedzialny za formatowanie wyjścia konsolowego.
 
-## 💻 Input Data Example (`transactions.csv`)
-```csv
+## 📋 Przykład danych wejściowych (transactions.csv)
+```text
 TX1001;1234567890;1500.00;PLN;2026-05-14
-TX1002;09876;50.00;USD;2026-05-10 (ERROR: Bad account format)
-TX1003;1122334455;-10.00;EUR;2026-05-01 (ERROR: Negative amount)
+TX1002;09876;50.00;USD;2026-05-10 (BŁĄD: Zły format konta)
+TX1003;1122334455;-10.00;EUR;2026-05-01 (BŁĄD: Kwota ujemna)
